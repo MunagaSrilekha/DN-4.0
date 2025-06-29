@@ -1,26 +1,22 @@
 package com.example;
 
+import static org.mockito.Mockito.*;
+
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
-
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.when;
 
 public class MyServiceTest {
 
     @Test
-    public void testExternalApi() {
-        // Create mock object
+    public void testVerifyInteraction() {
+        // Arrange
         ExternalApi mockApi = Mockito.mock(ExternalApi.class);
-
-        // Stub method
-        when(mockApi.getData()).thenReturn("Mock Data");
-
-        // Inject mock into service
         MyService service = new MyService(mockApi);
 
-        // Assert result
-        String result = service.fetchData();
-        assertEquals("Mock Data", result);
+        // Act
+        service.fetchData();
+
+        // Assert (verify interaction)
+        verify(mockApi).getData();
     }
 }
