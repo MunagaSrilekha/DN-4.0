@@ -1,22 +1,23 @@
 package com.cognizant.springlearn.service;
 
-import com.cognizant.springlearn.model.Country;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import java.util.HashMap;
+import java.util.Map;
+
 import org.springframework.stereotype.Service;
 
-import java.util.List;
+import com.cognizant.springlearn.model.Country;
 
 @Service
 public class CountryService {
+    private static final Map<String, Country> countryMap = new HashMap<>();
+
+    static {
+        countryMap.put("IN", new Country("IN", "India"));
+        countryMap.put("US", new Country("US", "United States"));
+        // Add more countries as needed
+    }
 
     public Country getCountry(String code) {
-        ApplicationContext context = new ClassPathXmlApplicationContext("country.xml");
-        List<Country> countries = context.getBean("countryList", List.class);
-
-        return countries.stream()
-                .filter(country -> country.getCode().equalsIgnoreCase(code))
-                .findFirst()
-                .orElse(null); // optionally throw exception
+        return countryMap.get(code.toUpperCase());
     }
 }
