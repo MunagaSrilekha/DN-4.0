@@ -1,23 +1,20 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState } from "react";
+import BookDetails from "./BookDetails";
+import BlogDetails from "./BlogDetails";
+import CourseDetails from "./CourseDetails";
 
 function App() {
+  const [view, setView] = useState("book");
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <button onClick={() => setView("book")}>Book</button>
+      <button onClick={() => setView("blog")}>Blog</button>
+      <button onClick={() => setView("course")}>Course</button>
+
+      {view === "book" && <BookDetails />}
+      {view === "blog" && <BlogDetails />}
+      {view === "course" && <CourseDetails />}
     </div>
   );
 }
